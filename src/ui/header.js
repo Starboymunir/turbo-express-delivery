@@ -16,6 +16,7 @@ import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import NestedMenuItem from "material-ui-nested-menu-item";
 import theme from "./theme";
 
 function a11yProps(index) {
@@ -79,28 +80,42 @@ const Header = props => {
   const matches = useMediaQuery(theme.breakpoints.up("md"));
 
   const [value, setValue] = useState(0);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [openMenu, setOpenMenu] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [menuPosition, setMenuPosition] = useState(null);
+  const [menuPosition2, setMenuPosition2] = useState(null);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   const handleClick = e => {
-    setAnchorEl(e.currentTarget);
-    setOpenMenu(true);
+    if (menuPosition) {
+      return;
+    }
+    console.log(e);
+    e.preventDefault();
+    setMenuPosition({
+      top: e.pageY,
+      left: e.pageX
+    });
   };
 
-  const handleMenuItemClick = (e, i) => {
-    setAnchorEl(null);
-    setOpenMenu(false);
-    setSelectedIndex(i);
+  const handleClick2 = e => {
+    if (menuPosition2) {
+      return;
+    }
+    e.preventDefault();
+    setMenuPosition2({
+      top: e.pageY,
+      left: e.pageX
+    });
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-    setOpenMenu(false);
+  const handleItemClick = event => {
+    setMenuPosition(null);
+  };
+
+  const handleItemClick2 = event => {
+    setMenuPosition2(null);
   };
 
   useEffect(() => {
@@ -110,12 +125,62 @@ const Header = props => {
           setValue(0);
         }
         break;
-      case "/services":
+      case "/express-services":
         if (value !== 1) {
           setValue(1);
         }
         break;
-      case "/tarrif":
+      case "/global-services":
+        if (value !== 1) {
+          setValue(1);
+        }
+        break;
+      case "/air-freight":
+        if (value !== 1) {
+          setValue(1);
+        }
+        break;
+      case "/ocean-forwarding":
+        if (value !== 1) {
+          setValue(1);
+        }
+        break;
+      case "/ocean-services":
+        if (value !== 1) {
+          setValue(1);
+        }
+        break;
+      case "/custom-clearance":
+        if (value !== 1) {
+          setValue(1);
+        }
+        break;
+      case "/management-services":
+        if (value !== 1) {
+          setValue(1);
+        }
+        break;
+      case "/freight-services":
+        if (value !== 1) {
+          setValue(1);
+        }
+        break;
+      case "/training":
+        if (value !== 1) {
+          setValue(1);
+        }
+        break;
+      case "/warehousing":
+        if (value !== 1) {
+          setValue(1);
+        }
+        break;
+      case "/list-of-destinations":
+        if (value !== 2) {
+          setValue(2);
+        }
+        break;
+      case "/banned-commodities":
         if (value !== 2) {
           setValue(2);
         }
@@ -125,36 +190,56 @@ const Header = props => {
     }
   }, [currentPath]);
 
-  const menuOptions = [
-    { name: "Express Services", link: "/express-services" },
-    { name: "Global Services", link: "/global-services" },
-    { name: "Cargo Services", link: "/air-freight" }
-  ];
-
   const navTab = (
     <React.Fragment>
       <Tabs variant="fullWidth" value={value} onChange={handleChange} arial-label="main navigation tabs">
         <Tab className={classes.navLink} component={Link} label="Home" href="/" {...a11yProps(0)} />
-        <Tab className={classes.navLink} component={Link} aria-owns={anchorEl ? "services-menu" : undefined} aria-haspopup={anchorEl ? "true" : undefined} label="Services" onMouseOver={event => handleClick(event)} href="/services" {...a11yProps(1)} />
-        <Tab className={classes.navLink} component={Link} label="Tarrif" href="/tarrif" {...a11yProps(2)} />
+        <Tab className={classes.navLink} label="Services" onClick={handleClick} />
+        <Tab className={classes.navLink} label="Tarrif" onClick={event => handleClick2(event)} />
         <Tab className={classes.navLink} component={Link} label="About" href="/about" {...a11yProps(3)} />
       </Tabs>
-      <Menu id="services-menu" anchorEl={anchorEl} open={openMenu} onClose={handleClose} elevation={0} classes={{ paper: classes.menu }} MenuListProps={{ onMouseLeave: handleClose }}>
-        {menuOptions.map((option, i) => (
-          <MenuItem
-            key={option.name}
-            component={Link}
-            href={option.link}
-            onClick={event => {
-              handleMenuItemClick(event, i);
-              setValue(1);
-              handleClose();
-            }}
-            selected={i === selectedIndex && value === 1}
-          >
-            {option.name}
+      <Menu open={!!menuPosition} onClose={() => setMenuPosition(null)} anchorReference="anchorPosition" anchorPosition={menuPosition} elevation={0}>
+        <MenuItem onClick={handleItemClick} component={Link} href="/express-services">
+          Express Services
+        </MenuItem>
+        <MenuItem onClick={handleItemClick} component={Link} href="/global-services">
+          Global Services
+        </MenuItem>
+        <NestedMenuItem label="Cargo Services" parentMenuOpen={!!menuPosition}>
+          <MenuItem onClick={handleItemClick} component={Link} href="/air-freight">
+            Air Freight
           </MenuItem>
-        ))}
+          <MenuItem onClick={handleItemClick} component={Link} href="/ocean-services">
+            Ocean Services
+          </MenuItem>
+          <MenuItem onClick={handleItemClick} component={Link} href="/customs-clearance">
+            Customs Clearance
+          </MenuItem>
+          <MenuItem onClick={handleItemClick} component={Link} href="/management-services">
+            Management Services
+          </MenuItem>
+          <MenuItem onClick={handleItemClick} component={Link} href="/freight-services">
+            Freight Services
+          </MenuItem>
+          <MenuItem onClick={handleItemClick} component={Link} href="/ocean-forwarding">
+            Ocean Forwarding
+          </MenuItem>
+          <MenuItem onClick={handleItemClick} component={Link} href="/training">
+            Training
+          </MenuItem>
+          <MenuItem onClick={handleItemClick} component={Link} href="/warehousing">
+            Warehousing
+          </MenuItem>
+        </NestedMenuItem>
+      </Menu>
+
+      <Menu open={!!menuPosition2} onClose={() => setMenuPosition2(null)} anchorReference="anchorPosition" anchorPosition={menuPosition2} elevation={0}>
+        <MenuItem onClick={handleItemClick2} component={Link} href="/list-of-destinations">
+          List of Destinations
+        </MenuItem>
+        <MenuItem onClick={handleItemClick2} component={Link} href="/banned-commodities">
+          Banned Commodities
+        </MenuItem>
       </Menu>
     </React.Fragment>
   );
