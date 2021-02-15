@@ -3,13 +3,13 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => createStyles({}));
 
-export default function Home() {
+export default function ExpressServices() {
   const classes = useStyles();
 
   return (
     <div>
       <Head>
-        <title>Home | Turbo Express Delivery</title>
+        <title>Express Services | Turbo Express Delivery</title>
       </Head>
     </div>
   );
