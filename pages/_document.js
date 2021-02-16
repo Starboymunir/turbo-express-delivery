@@ -10,8 +10,6 @@ export default class MyDocument extends Document {
         <Head>
           {/* PWA primary color */}
           <meta key="theme-color" name="theme-color" content={theme.palette.primary.main} />
-          <link key="preconnect" rel="preconnect" href="https://fonts.gstatic.com" />
-          <link key="font" rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" as="style" />
           <link key="favicon" rel="icon" href="/favicon.ico" />
         </Head>
         <body>

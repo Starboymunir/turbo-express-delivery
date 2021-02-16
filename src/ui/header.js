@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { cloneElement, Fragment, useEffect, useState } from "react";
 import Link from "../Link";
 import { useRouter } from "next/router";
 import { createStyles, fade, makeStyles } from "@material-ui/core/styles";
@@ -15,8 +15,22 @@ import MenuIcon from "@material-ui/icons/Menu";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import NestedMenuItem from "material-ui-nested-menu-item";
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import Hidden from "@material-ui/core/Hidden";
+import Paper from "@material-ui/core/Paper";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Popper from "@material-ui/core/Popper";
+import MenuList from "@material-ui/core/MenuList";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Grid from "@material-ui/core/Grid";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import theme from "./theme";
 
 function a11yProps(index) {
@@ -34,7 +48,7 @@ function ElevationScroll(props) {
     threshold: 0
   });
 
-  return React.cloneElement(children, {
+  return cloneElement(children, {
     elevation: trigger ? 4 : 0,
     color: trigger ? "default" : "transparent"
   });
@@ -46,30 +60,38 @@ const useStyles = makeStyles(theme =>
       flexGrow: 1
     },
     appBar: {},
-    menuButton: {
-      marginRight: theme.spacing(2)
+    toolbarMargin: {
+      ...theme.mixins.toolbar,
+      marginBottom: "theme.mixins.toolbar.minHeight"
     },
+    menuButton: {},
     title: {
       flexGrow: 1
     },
     track: {
+      [theme.breakpoints.down("sm")]: {
+        margin: theme.spacing(0)
+      },
       padding: theme.spacing(0, 0, 0, 2),
       borderRadius: theme.shape.borderRadius,
       backgroundColor: fade(theme.palette.secondary.main, 0.15),
       "&:hover": {
         backgroundColor: fade(theme.palette.secondary.main, 0.25)
       },
-      margin: theme.spacing(0, 8, 0, 0)
+      margin: theme.spacing(0, 3, 0, 0)
     },
     trackBtn: {
       padding: theme.spacing(1)
     },
     navLink: {
-      minWidth: "5rem",
-      marginLeft: "15px"
+      minWidth: "4.8rem",
+      textAlign: "center"
     },
     menu: {
       marginTop: "25px"
+    },
+    expansionSummary: {
+      height: "15px"
     }
   })
 );
@@ -77,46 +99,52 @@ const useStyles = makeStyles(theme =>
 const Header = props => {
   const classes = useStyles();
   let currentPath = useRouter().pathname;
-  const matches = useMediaQuery(theme.breakpoints.up("md"));
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const [value, setValue] = useState(0);
-  const [menuPosition, setMenuPosition] = useState(null);
-  const [menuPosition2, setMenuPosition2] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl2, setAnchorEl2] = useState(null);
+  const [openMenu, setOpenMenu] = useState(false);
+  const [openMenu2, setOpenMenu2] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   const handleClick = e => {
-    if (menuPosition) {
-      return;
-    }
-    console.log(e);
-    e.preventDefault();
-    setMenuPosition({
-      top: e.pageY,
-      left: e.pageX
-    });
+    setAnchorEl(e.currentTarget);
+    setOpenMenu(true);
   };
 
   const handleClick2 = e => {
-    if (menuPosition2) {
-      return;
+    setAnchorEl2(e.currentTarget);
+    setOpenMenu2(true);
+  };
+
+  const handleClose = e => {
+    setAnchorEl(null);
+    setOpenMenu(false);
+  };
+
+  const handleClose2 = e => {
+    setAnchorEl2(null);
+    setOpenMenu2(false);
+  };
+
+  function handleListKeyDown(event) {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setOpenMenu(false);
     }
-    e.preventDefault();
-    setMenuPosition2({
-      top: e.pageY,
-      left: e.pageX
-    });
-  };
+  }
 
-  const handleItemClick = event => {
-    setMenuPosition(null);
-  };
-
-  const handleItemClick2 = event => {
-    setMenuPosition2(null);
-  };
+  function handleListKeyDown2(event) {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setOpenMenu2(false);
+    }
+  }
 
   useEffect(() => {
     switch (currentPath) {
@@ -190,58 +218,233 @@ const Header = props => {
     }
   }, [currentPath]);
 
+  const cargo = [
+    { name: "Air Freight", link: "/air-freight" },
+    { name: "Ocean Services", link: "/ocean-services" },
+    { name: "Customs Clearance", link: "/customs-clearance" },
+    { name: "Management Services", link: "/management-services" },
+    { name: "Freight Services", link: "/freight-services" },
+    { name: "Ocean Forwarding", link: "/ocean-forwarding" },
+    { name: "Training", link: "/training" },
+    { name: "Warehousing", link: "/warehousing" }
+  ];
+
+  const services = [
+    { name: "Express Services", link: "/express-services" },
+    { name: "Global Services", link: "/global-services" },
+    { name: "Cargo Services", link: "/air-freight" }
+  ];
+
+  const tarrif = [
+    { name: "List of Destinations", link: "/list-of-destinations" },
+    { name: "Banned Commodities", link: "/banned-commodities" }
+  ];
+
   const navTab = (
-    <React.Fragment>
+    <Fragment>
       <Tabs variant="fullWidth" value={value} onChange={handleChange} arial-label="main navigation tabs">
         <Tab className={classes.navLink} component={Link} label="Home" href="/" {...a11yProps(0)} />
-        <Tab className={classes.navLink} label="Services" onClick={handleClick} />
-        <Tab className={classes.navLink} label="Tarrif" onClick={event => handleClick2(event)} />
-        <Tab className={classes.navLink} component={Link} label="About" href="/about" {...a11yProps(3)} />
-      </Tabs>
-      <Menu open={!!menuPosition} onClose={() => setMenuPosition(null)} anchorReference="anchorPosition" anchorPosition={menuPosition} elevation={0}>
-        <MenuItem onClick={handleItemClick} component={Link} href="/express-services">
-          Express Services
-        </MenuItem>
-        <MenuItem onClick={handleItemClick} component={Link} href="/global-services">
-          Global Services
-        </MenuItem>
-        <NestedMenuItem label="Cargo Services" parentMenuOpen={!!menuPosition}>
-          <MenuItem onClick={handleItemClick} component={Link} href="/air-freight">
-            Air Freight
-          </MenuItem>
-          <MenuItem onClick={handleItemClick} component={Link} href="/ocean-services">
-            Ocean Services
-          </MenuItem>
-          <MenuItem onClick={handleItemClick} component={Link} href="/customs-clearance">
-            Customs Clearance
-          </MenuItem>
-          <MenuItem onClick={handleItemClick} component={Link} href="/management-services">
-            Management Services
-          </MenuItem>
-          <MenuItem onClick={handleItemClick} component={Link} href="/freight-services">
-            Freight Services
-          </MenuItem>
-          <MenuItem onClick={handleItemClick} component={Link} href="/ocean-forwarding">
-            Ocean Forwarding
-          </MenuItem>
-          <MenuItem onClick={handleItemClick} component={Link} href="/training">
-            Training
-          </MenuItem>
-          <MenuItem onClick={handleItemClick} component={Link} href="/warehousing">
-            Warehousing
-          </MenuItem>
-        </NestedMenuItem>
-      </Menu>
+        <Tab className={classes.navLink} component={Link} href="/express-services" label="Services" aria-haspopup={anchorEl ? "true" : undefined} aria-owns={anchorEl ? "services-menu" : undefined} onMouseOver={event => handleClick(event)} onMouseLeave={() => setOpenMenu(false)} />
+        <Tab className={classes.navLink} component={Link} href="/list-of-destinations" label="Tarrif" aria-haspopup={anchorEl2 ? "true" : undefined} aria-owns={anchorEl2 ? "tarrif-menu" : undefined} onMouseOver={event => handleClick2(event)} onMouseLeave={() => setOpenMenu2(false)} />
 
-      <Menu open={!!menuPosition2} onClose={() => setMenuPosition2(null)} anchorReference="anchorPosition" anchorPosition={menuPosition2} elevation={0}>
-        <MenuItem onClick={handleItemClick2} component={Link} href="/list-of-destinations">
-          List of Destinations
-        </MenuItem>
-        <MenuItem onClick={handleItemClick2} component={Link} href="/banned-commodities">
-          Banned Commodities
-        </MenuItem>
-      </Menu>
-    </React.Fragment>
+        <Tab className={classes.navLink} component={Link} label="About" href="/about" {...a11yProps(3)} />
+        <Tab className={classes.navLink} component={Link} label="Contact" href="/contact" {...a11yProps(4)} />
+      </Tabs>
+      <Popper open={openMenu} anchorEl={anchorEl} placement="bottom-start" role={undefined} transition disablePortal>
+        {({ TransitionProps, placement }) => (
+          <Grow {...TransitionProps} style={{ transformOrigin: "top left" }}>
+            <Paper elevation={0}>
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList onMouseOver={() => setOpenMenu(true)} onMouseLeave={handleClose} disablePadding autoFocusItem={false} id="services-menu" onKeyDown={handleListKeyDown}>
+                  <MenuItem onClick={handleClose} component={Link} href="/express-services">
+                    Express Services
+                  </MenuItem>
+                  <MenuItem onClick={handleClose} component={Link} href="/global-services">
+                    Global Services
+                  </MenuItem>
+                  <NestedMenuItem label="Cargo Services" parentMenuOpen={!!openMenu}>
+                    {cargo.map(item => (
+                      <MenuItem key={item.name} onClick={handleClose} component={Link} href={item.link}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </NestedMenuItem>
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
+
+      <Popper open={openMenu2} anchorEl={anchorEl2} placement="bottom-start" role={undefined} transition disablePortal>
+        {({ TransitionProps, placement }) => (
+          <Grow {...TransitionProps} style={{ transformOrigin: "top left" }}>
+            <Paper elevation={0}>
+              <ClickAwayListener onClickAway={handleClose2}>
+                <MenuList onMouseOver={() => setOpenMenu2(true)} onMouseLeave={handleClose2} disablePadding autoFocusItem={false} id="tarrif-menu" onKeyDown={handleListKeyDown2}>
+                  <MenuItem onClick={handleClose2} component={Link} href="/list-of-destinations">
+                    List of Destinations
+                  </MenuItem>
+                  <MenuItem onClick={handleClose2} component={Link} href="/banned-commodities">
+                    Banned Commodities
+                  </MenuItem>
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
+    </Fragment>
+  );
+
+  const drawer = (
+    <Fragment>
+      <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS} open={openDrawer} onClose={() => setOpenDrawer(false)} onOpen={() => setOpenDrawer(true)}>
+        <List disablePadding>
+          <ListItem
+            button
+            component={Link}
+            href="/"
+            onClick={() => {
+              setOpenDrawer(false);
+            }}
+          >
+            <ListItemText>Home</ListItemText>
+          </ListItem>
+          <div className={classes.track}>
+            <InputBase placeholder="Tracking number..." inputProps={{ "aria-label": "Track package" }} />
+            <IconButton className={classes.trackBtn}>
+              <SearchIcon />
+            </IconButton>
+          </div>
+          <Accordion elevation={0}>
+            <AccordionSummary classes={{ root: classes.expansionSummary }} expandIcon={<ExpandMoreIcon color="secondary" />}>
+              <ListItem disableGutters button>
+                <ListItemText
+                  onClick={() => {
+                    setOpenDrawer(false);
+                  }}
+                >
+                  <Link href="/express-services" color="inherit">
+                    Services
+                  </Link>
+                </ListItemText>
+              </ListItem>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid container direction="column">
+                {services.map(service =>
+                  service.name !== "Cargo Services" ? (
+                    <Grid key={service.name + service.link} item>
+                      <ListItem
+                        button
+                        component={Link}
+                        href={service.link}
+                        onClick={() => {
+                          setOpenDrawer(false);
+                        }}
+                      >
+                        <ListItemText>{service.name}</ListItemText>
+                      </ListItem>
+                    </Grid>
+                  ) : (
+                    <Grid key={service.name + service.link} item>
+                      <Accordion elevation={0}>
+                        <AccordionSummary classes={{ root: classes.expansionSummary }} expandIcon={<ExpandMoreIcon color="secondary" />}>
+                          <ListItem disableGutters button>
+                            <ListItemText
+                              onClick={() => {
+                                setOpenDrawer(false);
+                              }}
+                            >
+                              <Link href={service.link} color="inherit">
+                                {service.name}
+                              </Link>
+                            </ListItemText>
+                          </ListItem>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Grid container direction="column">
+                            {cargo.map(item => (
+                              <Grid key={item.name + item.link} item>
+                                <ListItem
+                                  button
+                                  component={Link}
+                                  href={item.link}
+                                  onClick={() => {
+                                    setOpenDrawer(false);
+                                  }}
+                                >
+                                  <ListItemText>{item.name}</ListItemText>
+                                </ListItem>
+                              </Grid>
+                            ))}
+                          </Grid>
+                        </AccordionDetails>
+                      </Accordion>
+                    </Grid>
+                  )
+                )}
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
+
+          <Accordion elevation={0}>
+            <AccordionSummary classes={{ root: classes.expansionSummary }} expandIcon={<ExpandMoreIcon color="secondary" />}>
+              <ListItem disableGutters button>
+                <ListItemText
+                  onClick={() => {
+                    setOpenDrawer(false);
+                  }}
+                >
+                  <Link href="/list-of-destinations" color="inherit">
+                    Tarrif
+                  </Link>
+                </ListItemText>
+              </ListItem>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid container direction="column">
+                {tarrif.map(item => (
+                  <Grid key={item.name + item.link} item>
+                    <ListItem
+                      button
+                      component={Link}
+                      href={item.link}
+                      onClick={() => {
+                        setOpenDrawer(false);
+                      }}
+                    >
+                      <ListItemText>{item.name}</ListItemText>
+                    </ListItem>
+                  </Grid>
+                ))}
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
+          <ListItem
+            button
+            component={Link}
+            href="/about"
+            onClick={() => {
+              setOpenDrawer(false);
+            }}
+          >
+            <ListItemText>About</ListItemText>
+          </ListItem>
+          <ListItem
+            button
+            component={Link}
+            href="/contact"
+            onClick={() => {
+              setOpenDrawer(false);
+            }}
+          >
+            <ListItemText>Contact</ListItemText>
+          </ListItem>
+        </List>
+      </SwipeableDrawer>
+    </Fragment>
   );
 
   return (
@@ -252,14 +455,21 @@ const Header = props => {
             <Typography variant="h6" className={classes.title}>
               Turbo Express
             </Typography>
-            <div className={classes.track}>
-              <InputBase placeholder="Tracking number..." inputProps={{ "aria-label": "Track package" }} />
-              <IconButton className={classes.trackBtn}>
-                <SearchIcon />
+            <Hidden smDown>
+              <div className={classes.track}>
+                <InputBase placeholder="Tracking number..." inputProps={{ "aria-label": "Track package" }} />
+                <IconButton className={classes.trackBtn}>
+                  <SearchIcon />
+                </IconButton>
+              </div>
+            </Hidden>
+            <Hidden mdUp>
+              <IconButton onClick={() => setOpenDrawer(!openDrawer)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                <MenuIcon />
               </IconButton>
-            </div>
-
-            {navTab}
+            </Hidden>
+            <Hidden smDown>{navTab}</Hidden>
+            <Hidden mdUp>{drawer}</Hidden>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
