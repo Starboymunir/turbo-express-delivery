@@ -22,12 +22,18 @@ const theme = createMuiTheme({
     }
   },
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Noto Sans TC", "Helvetica", "Arial", sans-serif',
     fontSize: 14,
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,
-    fontWeightBold: 700
+    fontWeightBold: 700,
+    h3: {
+      color: "#fb6542"
+    },
+    h4: {
+      color: "#375497"
+    }
   }
 });
 

@@ -1,15 +1,13 @@
 import { cloneElement, Fragment, useEffect, useState } from "react";
 import Link from "../Link";
+import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { createStyles, fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuIcon from "@material-ui/icons/Menu";
 import InputBase from "@material-ui/core/InputBase";
@@ -31,7 +29,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Grid from "@material-ui/core/Grid";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import theme from "./theme";
+import Image from "next/image";
 
 function a11yProps(index) {
   return {
@@ -66,7 +64,8 @@ const useStyles = makeStyles(theme =>
     },
     menuButton: {},
     title: {
-      flexGrow: 1
+      flexGrow: 1,
+      marginTop: "7px"
     },
     track: {
       [theme.breakpoints.down("sm")]: {
@@ -78,20 +77,33 @@ const useStyles = makeStyles(theme =>
       "&:hover": {
         backgroundColor: fade(theme.palette.secondary.main, 0.25)
       },
-      margin: theme.spacing(0, 3, 0, 0)
+      margin: theme.spacing(0, 10, 0, 0),
+      [theme.breakpoints.up("lg")]: {
+        margin: theme.spacing(0, 20, 0, 0)
+      }
     },
     trackBtn: {
       padding: theme.spacing(1)
     },
     navLink: {
       minWidth: "4.8rem",
-      textAlign: "center"
+      textAlign: "center",
+      fontSize: "1rem",
+      textTransform: "none",
+      fontWeight: 400
     },
     menu: {
       marginTop: "25px"
     },
     expansionSummary: {
       height: "15px"
+    },
+    drawerLogo: {
+      padding: theme.spacing(2),
+      textAlign: "center"
+    },
+    navLogo: {
+      marginTop: "5px"
     }
   })
 );
@@ -300,6 +312,13 @@ const Header = props => {
   const drawer = (
     <Fragment>
       <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS} open={openDrawer} onClose={() => setOpenDrawer(false)} onOpen={() => setOpenDrawer(true)}>
+        <div className={classes.drawerLogo}>
+          <NextLink href="/">
+            <a>
+              <img src="/logo.svg" alt="Turbo Express Delivery Logo" />
+            </a>
+          </NextLink>
+        </div>
         <List disablePadding>
           <ListItem
             button
@@ -388,7 +407,6 @@ const Header = props => {
               </Grid>
             </AccordionDetails>
           </Accordion>
-
           <Accordion elevation={0}>
             <AccordionSummary classes={{ root: classes.expansionSummary }} expandIcon={<ExpandMoreIcon color="secondary" />}>
               <ListItem disableGutters button>
@@ -452,9 +470,9 @@ const Header = props => {
       <ElevationScroll {...props}>
         <AppBar className={classes.appBar} position="fixed">
           <Toolbar>
-            <Typography variant="h6" className={classes.title}>
-              Turbo Express
-            </Typography>
+            <div className={classes.title}>
+              <Image component={Link} href="/" src="/logo.svg" alt="Turbo Express Delivery Logo" layout="fixed" width={101} height={45} />
+            </div>
             <Hidden smDown>
               <div className={classes.track}>
                 <InputBase placeholder="Tracking number..." inputProps={{ "aria-label": "Track package" }} />

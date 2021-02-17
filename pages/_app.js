@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/globals.css";
-import Header from "../src/ui/header";
+import Header from "../src/ui/Header";
 import { ThemeProvider } from "@material-ui/core";
-import Theme from "../src/ui/theme";
+import Theme from "../src/ui/Theme";
 
 function MyApp({ Component, pageProps }) {
   return (

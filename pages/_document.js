@@ -1,7 +1,7 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheets } from "@material-ui/core/styles";
-import theme from "../src/ui/theme";
+import theme from "../src/ui/Theme";
 
 export default class MyDocument extends Document {
   render() {
@@ -11,6 +11,8 @@ export default class MyDocument extends Document {
           {/* PWA primary color */}
           <meta key="theme-color" name="theme-color" content={theme.palette.primary.main} />
           <link key="favicon" rel="icon" href="/favicon.ico" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet" />
         </Head>
         <body>
           <Main />
