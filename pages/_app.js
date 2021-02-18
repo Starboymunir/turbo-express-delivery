@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "../styles/globals.css";
 import Header from "../src/ui/Header";
+import Footer from "../src/ui/Footer";
 import { ThemeProvider } from "@material-ui/core";
 import Theme from "../src/ui/Theme";
 
@@ -10,6 +11,7 @@ function MyApp({ Component, pageProps }) {
       <ThemeProvider theme={Theme}>
         <Header />
         <Component {...pageProps} />
+        <Footer />
       </ThemeProvider>
     </React.Fragment>
   );

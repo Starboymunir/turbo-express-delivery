@@ -33,6 +33,17 @@ const theme = createMuiTheme({
     },
     h4: {
       color: "#375497"
+    },
+    h5: {
+      color: "#fb6542"
+    },
+    body1: {
+      fontWeight: 300,
+      lineHeight: 1.65,
+      fontSize: "1.225rem"
+    },
+    body2: {
+      fontWeight: 300
     }
   }
 });

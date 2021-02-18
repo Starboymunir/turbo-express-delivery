@@ -47,8 +47,7 @@ function ElevationScroll(props) {
   });
 
   return cloneElement(children, {
-    elevation: trigger ? 4 : 0,
-    color: trigger ? "default" : "transparent"
+    elevation: trigger ? 4 : 0
   });
 }
 
@@ -57,7 +56,9 @@ const useStyles = makeStyles(theme =>
     root: {
       flexGrow: 1
     },
-    appBar: {},
+    appBar: {
+      backgroundColor: "#edeef0"
+    },
     toolbarMargin: {
       ...theme.mixins.toolbar,
       marginBottom: "theme.mixins.toolbar.minHeight"
@@ -77,18 +78,18 @@ const useStyles = makeStyles(theme =>
       "&:hover": {
         backgroundColor: fade(theme.palette.secondary.main, 0.25)
       },
-      margin: theme.spacing(0, 10, 0, 0),
+      margin: theme.spacing(0, 5, 0, 0),
       [theme.breakpoints.up("lg")]: {
-        margin: theme.spacing(0, 20, 0, 0)
+        margin: theme.spacing(0, 10, 0, 0)
       }
     },
     trackBtn: {
       padding: theme.spacing(1)
     },
     navLink: {
-      minWidth: "4.8rem",
+      minWidth: "5rem",
       textAlign: "center",
-      fontSize: "1rem",
+      fontSize: "1.125rem",
       textTransform: "none",
       fontWeight: 400
     },
@@ -104,6 +105,10 @@ const useStyles = makeStyles(theme =>
     },
     navLogo: {
       marginTop: "5px"
+    },
+    navMenu: {
+      backgroundColor: "#edeef0",
+      fontSize: "1.125rem"
     }
   })
 );
@@ -268,15 +273,15 @@ const Header = props => {
             <Paper elevation={0}>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList onMouseOver={() => setOpenMenu(true)} onMouseLeave={handleClose} disablePadding autoFocusItem={false} id="services-menu" onKeyDown={handleListKeyDown}>
-                  <MenuItem onClick={handleClose} component={Link} href="/express-services">
+                  <MenuItem className={classes.navMenu} onClick={handleClose} component={Link} href="/express-services">
                     Express Services
                   </MenuItem>
-                  <MenuItem onClick={handleClose} component={Link} href="/global-services">
+                  <MenuItem className={classes.navMenu} onClick={handleClose} component={Link} href="/global-services">
                     Global Services
                   </MenuItem>
-                  <NestedMenuItem label="Cargo Services" parentMenuOpen={!!openMenu}>
+                  <NestedMenuItem className={classes.navMenu} label="Cargo Services" parentMenuOpen={!!openMenu}>
                     {cargo.map(item => (
-                      <MenuItem key={item.name} onClick={handleClose} component={Link} href={item.link}>
+                      <MenuItem className={classes.navMenu} key={item.name} onClick={handleClose} component={Link} href={item.link}>
                         {item.name}
                       </MenuItem>
                     ))}
@@ -294,10 +299,10 @@ const Header = props => {
             <Paper elevation={0}>
               <ClickAwayListener onClickAway={handleClose2}>
                 <MenuList onMouseOver={() => setOpenMenu2(true)} onMouseLeave={handleClose2} disablePadding autoFocusItem={false} id="tarrif-menu" onKeyDown={handleListKeyDown2}>
-                  <MenuItem onClick={handleClose2} component={Link} href="/list-of-destinations">
+                  <MenuItem className={classes.navMenu} onClick={handleClose2} component={Link} href="/list-of-destinations">
                     List of Destinations
                   </MenuItem>
-                  <MenuItem onClick={handleClose2} component={Link} href="/banned-commodities">
+                  <MenuItem className={classes.navMenu} onClick={handleClose2} component={Link} href="/banned-commodities">
                     Banned Commodities
                   </MenuItem>
                 </MenuList>
@@ -468,7 +473,7 @@ const Header = props => {
   return (
     <div className={classes.root}>
       <ElevationScroll {...props}>
-        <AppBar className={classes.appBar} position="fixed">
+        <AppBar color="default" className={classes.appBar} position="fixed">
           <Toolbar>
             <div className={classes.title}>
               <Image component={Link} href="/" src="/logo.svg" alt="Turbo Express Delivery Logo" layout="fixed" width={101} height={45} />
