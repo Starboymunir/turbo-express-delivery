@@ -230,6 +230,16 @@ const Header = props => {
           setValue(2);
         }
         break;
+      case "/about":
+        if (value !== 3) {
+          setValue(3);
+        }
+        break;
+      case "/contact":
+        if (value !== 4) {
+          setValue(4);
+        }
+        break;
       default:
         break;
     }

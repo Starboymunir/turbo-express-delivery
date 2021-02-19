@@ -4,81 +4,72 @@ import generalStyle from "../src/styles/_general";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Zoom from "react-reveal/Zoom";
-import DirectionsBoatIcon from "@material-ui/icons/DirectionsBoat";
+import DoneAllIcon from "@material-ui/icons/DoneAll";
 import IconButton from "@material-ui/core/IconButton";
 
-export default function OceanForwarding() {
+export default function CustomClearance() {
   const classes = generalStyle();
 
   return (
     <Fragment>
       <Head>
-        <title>Ocean Forwarding | Turbo Express Delivery</title>
-        <meta name="description" key="description" content="Ocean Forwarding at Turbo Express Delivery" />
+        <title>Custom Clearance | Turbo Express Delivery</title>
+        <meta name="description" key="description" content="Custom Clearance at Turbo Express Delivery" />
         <meta property="og:title" content="Global Shipping | Turbo Express Delivery" key="og:title" />
       </Head>
       <Grid className={classes.mainContainer} container alignItems="center" direction="column">
         <Zoom clear>
           <Typography variant="h3" component="h2" gutterBottom>
             <IconButton>
-              <DirectionsBoatIcon className={classes.titleIcon} color="primary" />
-            </IconButton>{" "}
-            Ocean Forwarding
+              <DoneAllIcon className={classes.titleIcon} color="primary" />
+            </IconButton>
+            Customs Clearance
           </Typography>
         </Zoom>
-
         <Grid md={8} lg={6} elevation={0} item>
           <Zoom clear>
             <Typography variant="body1" gutterBottom>
-              Our ocean forwarding program supplies customers with a proven process that helps support productivity , improvements, cost reduction and consistent overseas service.
+              With the current emphasis on complex free trade agreements and global sourcing, customs issues have assumed an increasingly important role in the supply chain. Our global customs services focus on the compliance, release and reporting needs of the marketplace.
             </Typography>
           </Zoom>
           <Zoom clear>
             <Typography className={`${classes.smallBlueHeading} ${classes.mt3}`} variant="h5" gutterBottom>
-              Experienced Personnel
+              Visionary
             </Typography>
             <Typography variant="body1" gutterBottom>
-              Thanks to our extensive experience with ocean documentation and shipping, we understand the complexities of shipping globally.
+              Turbo Express Cargo has redesigned the industrys "value curve" for customs sourcing. Customs issues have assumed an increasingly important role in the supply chain.
             </Typography>
           </Zoom>
           <Zoom clear>
             <Typography className={`${classes.smallBlueHeading} ${classes.mt3}`} variant="h5" gutterBottom>
-              Electronic Capabilities
+              Compliance Driven Processes
             </Typography>
             <Typography variant="body1" gutterBottom>
-              Multiple EDI documents are electronically sent and received to and from your order/ship/bill (OSB) system including 810 commercial invoice, 856 Pre-Alert and 858 Confirmation.
+              Our network operates under standardized processes which are continually validated, measured, analyzed and reviewed. Whether your customs activates are in the U.S. or Mexico, we have mapped and verified a standard process flow.
             </Typography>
           </Zoom>
           <Zoom clear>
             <Typography className={`${classes.smallBlueHeading} ${classes.mt3}`} variant="h5" gutterBottom>
-              In-House Banking
+              Data, Not Document
             </Typography>
             <Typography variant="body1" gutterBottom>
-              In-house banking is available at some of our locations, providing quicker and more accurate processing for letters of credit.
+              Tired of stacks of documents? Let us move you into a paperless environment.
             </Typography>
           </Zoom>
           <Zoom clear>
             <Typography className={`${classes.smallBlueHeading} ${classes.mt3}`} variant="h5" gutterBottom>
-              Pre-Alert Procedures
+              Ranking
             </Typography>
             <Typography variant="body1" gutterBottom>
-              Pre-alerts are automatically sent to all overseas customers as well as shippers and designated third parties.
+              Our network and size have provided us with stature. In the U.S., for example, we rank as the nations fourth largest customs broker, based on entered values reported under our file code.
             </Typography>
           </Zoom>
           <Zoom clear>
             <Typography className={`${classes.smallBlueHeading} ${classes.mt3}`} variant="h5" gutterBottom>
-              Rate Negotiation Quotes
+              Expertise
             </Typography>
             <Typography variant="body1" gutterBottom>
-              Our focus on rate negotiation involves key contacts with all carriers. Our goal is a four- hour turnaround for all ocean rate quote requests.
-            </Typography>
-          </Zoom>
-          <Zoom clear>
-            <Typography className={`${classes.smallBlueHeading} ${classes.mt3}`} variant="h5" gutterBottom>
-              Door-to-Door Tracking
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              All containers, including shipment-in-process communication with the overseas customer are tracked door-to-door.
+              Our combination of product management, field operations and consulting service allow us to provide you the perfect mix of skill sets necessary for complete custom.
             </Typography>
           </Zoom>
         </Grid>

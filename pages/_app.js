@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import "../styles/globals.css";
-import Header from "../src/ui/Header";
-import Footer from "../src/ui/Footer";
+import Header from "../src/components/Header";
+import Footer from "../src/components/Footer";
 import { ThemeProvider } from "@material-ui/core";
-import Theme from "../src/ui/Theme";
+import Theme from "../src/components/Theme";
 
 function MyApp({ Component, pageProps }) {
   return (
