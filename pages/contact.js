@@ -8,6 +8,7 @@ import ContactMailIcon from "@material-ui/icons/ContactMail";
 import CallIcon from "@material-ui/icons/Call";
 import IconButton from "@material-ui/core/IconButton";
 import EmailIcon from "@material-ui/icons/Email";
+import Maps from "../src/components/Maps";
 
 export default function Contact() {
   const classes = generalStyle();
@@ -76,6 +77,10 @@ export default function Contact() {
           </Grid>
         </Grid>
       </Grid>
+      <Grid container>
+        <Maps />
+      </Grid>
+      <div className={classes.mb100} />
     </Fragment>
   );
 }
