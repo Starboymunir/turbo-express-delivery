@@ -12,7 +12,7 @@ export default class MyDocument extends Document {
           <meta key="theme-color" name="theme-color" content={theme.palette.primary.main} />
           <link key="favicon" rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400&display=swap" rel="stylesheet" />
+          <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400&display=swap" as="style" />
         </Head>
         <body>
           <Main />
