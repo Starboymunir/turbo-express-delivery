@@ -34,6 +34,13 @@ const useStyles = makeStyles(theme =>
     pxy2: {
       padding: theme.spacing(2)
     },
+    px1: {
+      padding: theme.spacing(0, 1)
+    },
+    py0: {
+      paddingTop: theme.spacing(0.3),
+      paddingBottom: theme.spacing(0.3)
+    },
     bgPrimary: {
       backgroundColor: theme.palette.primary.main
     },
