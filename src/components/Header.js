@@ -84,6 +84,7 @@ const useStyles = makeStyles(theme =>
       }
     },
     trackBtn: {
+      width: "20%",
       padding: theme.spacing(1)
     },
     navLink: {
@@ -109,13 +110,17 @@ const useStyles = makeStyles(theme =>
     navMenu: {
       backgroundColor: "#edeef0",
       fontSize: "1.125rem"
+    },
+    input: {
+      width: "80%"
     }
   })
 );
 
 const Header = props => {
   const classes = useStyles();
-  let currentPath = useRouter().pathname;
+  const router = useRouter();
+  let currentPath = router.pathname;
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const [value, setValue] = useState(0);
@@ -124,6 +129,7 @@ const Header = props => {
   const [openMenu, setOpenMenu] = useState(false);
   const [openMenu2, setOpenMenu2] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [trackingNo, setTrackingNo] = useState("");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -485,13 +491,13 @@ const Header = props => {
       <ElevationScroll {...props}>
         <AppBar color="default" className={classes.appBar} position="fixed">
           <Toolbar>
-            <div className={classes.title}>
-              <Image component={Link} href="/" src="/logo.svg" alt="Turbo Express Delivery Logo" layout="fixed" width={101} height={45} />
-            </div>
+            <Link href="/" className={classes.title}>
+              <Image src="/logo.svg" alt="Turbo Express Delivery Logo" layout="fixed" width={101} height={45} />
+            </Link>
             <Hidden smDown>
               <div className={classes.track}>
-                <InputBase placeholder="Tracking number..." inputProps={{ "aria-label": "Track package" }} />
-                <IconButton className={classes.trackBtn}>
+                <InputBase onChange={e => setTrackingNo(e.target.value)} className={classes.input} placeholder="Tracking number..." inputProps={{ "aria-label": "Track package" }} />
+                <IconButton onClick={() => router.push(`/tracking/${trackingNo}`)} className={classes.trackBtn}>
                   <SearchIcon />
                 </IconButton>
               </div>

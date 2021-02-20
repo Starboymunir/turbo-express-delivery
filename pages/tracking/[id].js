@@ -6,6 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Zoom from "react-reveal/Zoom";
 
+Axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACKEND_URI;
+
 export default function Tracking({ order }) {
   const classes = generalStyle();
 
@@ -105,14 +107,14 @@ export default function Tracking({ order }) {
 }
 
 export async function getStaticPaths() {
-  const response = await Axios.get("http://localhost:8080/allItems");
+  const response = await Axios.get("/allItems");
   const orders = response.data;
   const paths = orders.map(order => `/tracking/${order.number}`);
   return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
-  const response = await Axios.post(`http://localhost:8080/fetchOrder`, { number: params.id });
+  const response = await Axios.post(`/fetchOrder`, { number: params.id });
   const order = response.data;
   return { props: { order } };
 }

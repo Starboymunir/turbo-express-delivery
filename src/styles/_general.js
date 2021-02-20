@@ -22,6 +22,9 @@ const useStyles = makeStyles(theme =>
     mt3: {
       marginTop: theme.spacing(3)
     },
+    mt5: {
+      marginTop: theme.spacing(5)
+    },
     mb3: {
       marginBottom: theme.spacing(3)
     },
@@ -40,6 +43,12 @@ const useStyles = makeStyles(theme =>
     py0: {
       paddingTop: theme.spacing(0.3),
       paddingBottom: theme.spacing(0.3)
+    },
+    mt2: {
+      marginTop: theme.spacing(2)
+    },
+    ml3: {
+      marginLeft: theme.spacing(3)
     },
     bgPrimary: {
       backgroundColor: theme.palette.primary.main
