@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import Link from "../src/Link";
 import { createStyles, makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -34,6 +33,7 @@ const useStyles = makeStyles(theme =>
       }
     },
     landingSection: {
+      width: "100%",
       minHeight: "90vh",
       background: "url('/images/backgroundImg.jpg') top center no-repeat",
       backgroundSize: "cover"
@@ -125,6 +125,10 @@ const useStyles = makeStyles(theme =>
     featuresTitle: {
       textAlign: "center",
       marginBottom: theme.spacing(5)
+    },
+    imageElem: {
+      maxWidth: "100%",
+      height: "auto"
     }
   })
 );
@@ -166,7 +170,7 @@ export default function Home() {
           <Grid sm={12} md={6} item>
             <Paper elevation={0} className={classes.lSDescription}>
               <Zoom clear>
-                <Image src="/images/turbo.svg" alt="Turbo Express Delivery Image" width={670} height={450} layout="intrinsic" />
+                <img className={classes.imageElem} src="/images/turbo.png" alt="Turbo Express Delivery Image" width={715} height={431} />
               </Zoom>
             </Paper>
           </Grid>

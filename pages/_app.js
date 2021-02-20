@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/globals.css";
 import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
 import { ThemeProvider } from "@material-ui/core";

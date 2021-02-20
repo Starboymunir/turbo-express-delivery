@@ -29,7 +29,6 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Grid from "@material-ui/core/Grid";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Image from "next/image";
 
 function a11yProps(index) {
   return {
@@ -492,7 +491,7 @@ const Header = props => {
         <AppBar color="default" className={classes.appBar} position="fixed">
           <Toolbar>
             <Link href="/" className={classes.title}>
-              <Image src="/logo.svg" alt="Turbo Express Delivery Logo" layout="fixed" width={101} height={45} />
+              <img src="/logo.png" height={48} width={108} alt="Logo" />
             </Link>
             <Hidden smDown>
               <div className={classes.track}>
