@@ -335,7 +335,7 @@ const Header = props => {
         <div className={classes.drawerLogo}>
           <NextLink href="/">
             <a>
-              <img src="/logo.svg" alt="Turbo Express Delivery Logo" />
+              <img src="/logo.svg" height={52} width={108} alt="Turbo Express Delivery Logo" />
             </a>
           </NextLink>
         </div>
@@ -491,7 +491,7 @@ const Header = props => {
         <AppBar color="default" className={classes.appBar} position="fixed">
           <Toolbar>
             <Link href="/" className={classes.title}>
-              <img src="/logo.png" height={48} width={108} alt="Logo" />
+              <img src="/logo.svg" height={52} width={108} alt="Logo" />
             </Link>
             <Hidden smDown>
               <div className={classes.track}>
