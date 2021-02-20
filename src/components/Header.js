@@ -351,8 +351,8 @@ const Header = props => {
             <ListItemText>Home</ListItemText>
           </ListItem>
           <div className={classes.track}>
-            <InputBase placeholder="Tracking number..." inputProps={{ "aria-label": "Track package" }} />
-            <IconButton className={classes.trackBtn}>
+            <InputBase onChange={e => setTrackingNo(e.target.value)} placeholder="Tracking number..." inputProps={{ "aria-label": "Track package" }} />
+            <IconButton onClick={() => router.push(`/tracking/${trackingNo}`)} className={classes.trackBtn}>
               <SearchIcon />
             </IconButton>
           </div>
