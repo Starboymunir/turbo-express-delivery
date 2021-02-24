@@ -48,6 +48,8 @@ export default function Tracking({ isValid }) {
         try {
           await Axios.post("/addOrder", { number: orderNumberNew, senderPhone, senderEmail, senderLocation, receiverPhone, receiverEmail, receiverLocation, shipmentDestination, shipDate, expectedDate, description, currentLocation, currentStatus, firstStop, secondStop, thirdStop }, { cancelToken: myRequest.token });
 
+          await Axios.post("https://api.netlify.com/build_hooks/6036b2c85f22e615fbcb7d17", {});
+
           alert("Item was successfully added to the database.");
           setSubmitCount(0);
         } catch (error) {
@@ -72,6 +74,8 @@ export default function Tracking({ isValid }) {
         try {
           await Axios.post("/removeOrder", { number: orderNumberDel }, { cancelToken: myRequest.token });
 
+          await Axios.post("https://api.netlify.com/build_hooks/6036b2c85f22e615fbcb7d17", {});
+
           alert("Item was successfully deleted from the database.");
           setDeleteCount(0);
         } catch (error) {
@@ -95,6 +99,8 @@ export default function Tracking({ isValid }) {
       async function updateOrder() {
         try {
           await Axios.post("/updateOrder", { number: orderNumberUpdate, fieldToUpdate: updateField, newUpdateValue }, { cancelToken: myRequest.token });
+
+          await Axios.post("https://api.netlify.com/build_hooks/6036b2c85f22e615fbcb7d17", {});
 
           alert("Item was successfully updated in the database.");
           setUpdateCount(0);
