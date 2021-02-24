@@ -321,6 +321,7 @@ export async function getStaticPaths() {
   return { paths, fallback: false };
 }
 
+// Get static props
 export async function getStaticProps({ params }) {
   const response = await Axios.post(`/checkKey`, { secretKey: params.secret });
   const isValid = response.data;
