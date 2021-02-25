@@ -153,8 +153,11 @@ export default function Home() {
     <Grid container className={classes.mainConainer} direction="column">
       <Head>
         <title key="title">Home | Turbo Express Delivery</title>
-        <meta name="description" key="description" content="Turbo Express Delivery provides global delivery services with top-notch security and efficiency that satisty your needs" />
+        <meta name="description" key="description" content="Turbo Express Delivery provides global delivery services with top-notch security and efficiency that satisty your needs." />
         <meta property="og:title" content="Global Shipping | Turbo Express Delivery" key="og:title" />
+        <meta property="og:image" key="og:image" content="https://www.turboexpressdelivery.com/images/turbo.png"></meta>
+        <meta property="og:url" key="og:url" content="www.turboexpressdelivery.com" />
+        <link rel="canonical" key="canonical" href="https://www.turboexpressdelivery.com" />
       </Head>
 
       <Grid item>
@@ -166,10 +169,10 @@ export default function Home() {
                 <Typography className={classes.lSDescription__title} variant="h3" component="h1">
                   Turbo Express Delivery
                 </Typography>
-                <Typography className={classes.lSDescription__subtitle} variant="h4" component="h3">
+                <Typography className={classes.lSDescription__subtitle} variant="h4" component="h2">
                   The world is at your door step
                 </Typography>
-                <Typography className={classes.lSDescription__description} variant="body1">
+                <Typography className={classes.lSDescription__description} variant="body1" component="h3">
                   We provide global delivery services with top-notch security and efficiency that satisfy your needs.
                 </Typography>
                 <Button elevation={0} className={classes.lSDescription__btn} variant="contained" color="secondary" size="large" component={Link} href="/contact">

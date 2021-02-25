@@ -32,6 +32,9 @@ export default function BannedCommodities() {
         <title>Banned Commodities | Turbo Express Delivery</title>
         <meta name="description" key="description" content="Banned Commodities at Turbo Express Delivery" />
         <meta property="og:title" content="Global Shipping | Turbo Express Delivery" key="og:title" />
+        <meta property="og:image" key="og:image" content="https://www.turboexpressdelivery.com/images/turbo.png"></meta>
+        <meta property="og:url" key="og:url" content="www.turboexpressdelivery.com" />
+        <link rel="canonical" key="canonical" href="https://www.turboexpressdelivery.com/banned-commodities" />
       </Head>
       <Grid className={classes.mainContainerNoPad} container alignItems="center" direction="column">
         <Zoom clear>

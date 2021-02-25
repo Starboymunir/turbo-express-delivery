@@ -39,6 +39,7 @@ export default function Tracking({ isValid }) {
   const [submitCount, setSubmitCount] = useState(0);
   const [deleteCount, setDeleteCount] = useState(0);
   const [updateCount, setUpdateCount] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (submitCount) {
@@ -51,10 +52,12 @@ export default function Tracking({ isValid }) {
           await Axios.post("https://api.netlify.com/build_hooks/6036b2c85f22e615fbcb7d17", {});
 
           alert("Item was successfully added to the database.");
+          setSubmitting(false);
           setSubmitCount(0);
         } catch (error) {
           alert("Add new package not successful");
           console.error("Add new package not successful");
+          setSubmitting(false);
           setSubmitCount(0);
         }
       }
@@ -77,10 +80,12 @@ export default function Tracking({ isValid }) {
           await Axios.post("https://api.netlify.com/build_hooks/6036b2c85f22e615fbcb7d17", {});
 
           alert("Item was successfully deleted from the database.");
+          setSubmitting(false);
           setDeleteCount(0);
         } catch (error) {
           alert("Delete package not successful");
           console.error("Delete package not successful");
+          setSubmitting(false);
           setDeleteCount(0);
         }
       }
@@ -103,10 +108,12 @@ export default function Tracking({ isValid }) {
           await Axios.post("https://api.netlify.com/build_hooks/6036b2c85f22e615fbcb7d17", {});
 
           alert("Item was successfully updated in the database.");
+          setSubmitting(false);
           setUpdateCount(0);
         } catch (error) {
           alert("Update package not successful");
           console.error("Update package not successful");
+          setSubmitting(false);
           setUpdateCount(0);
         }
       }
@@ -120,16 +127,19 @@ export default function Tracking({ isValid }) {
 
   const handleSubmit = e => {
     e.preventDefault();
+    setSubmitting(true);
     setSubmitCount(1);
   };
 
   const handleDelete = e => {
     e.preventDefault();
+    setSubmitting(true);
     setDeleteCount(1);
   };
 
   const handleUpdate = e => {
     e.preventDefault();
+    setSubmitting(true);
     setUpdateCount(1);
   };
 
@@ -250,7 +260,7 @@ export default function Tracking({ isValid }) {
               </Grid>
             </Grid>
 
-            <Button type="submit" variant="contained" color="secondary" className={classes.textWhite}>
+            <Button type="submit" disabled={submitting} variant="contained" color="secondary" className={classes.textWhite}>
               Add package to database
             </Button>
           </form>
@@ -266,7 +276,7 @@ export default function Tracking({ isValid }) {
               <Input required onChange={e => setOrderNumberDel(e.target.value)} id="order-number-delete" aria-describedby="order number" />
             </FormControl>
 
-            <Button type="submit" variant="contained" color="secondary" className={`${classes.textWhite} ${classes.mt2}`}>
+            <Button type="submit" disabled={submitting} variant="contained" color="secondary" className={`${classes.textWhite} ${classes.mt2}`}>
               Delete
             </Button>
           </form>
@@ -312,7 +322,7 @@ export default function Tracking({ isValid }) {
                 </FormControl>
               </Grid>
             </Grid>
-            <Button type="submit" variant="contained" color="secondary" className={`${classes.textWhite} ${classes.mt2}`}>
+            <Button type="submit" disabled={submitting} variant="contained" color="secondary" className={`${classes.textWhite} ${classes.mt2}`}>
               Update
             </Button>
           </form>
