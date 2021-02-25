@@ -35,7 +35,7 @@ export default function BannedCommodities() {
       </Head>
       <Grid className={classes.mainContainerNoPad} container alignItems="center" direction="column">
         <Zoom clear>
-          <Typography className={classes.px3} variant="h3" component="h2" gutterBottom>
+          <Typography className={classes.px3} variant="h3" component="h1" gutterBottom>
             <IconButton>
               <BlockIcon className={classes.titleIcon} color="primary" />
             </IconButton>{" "}

@@ -163,7 +163,7 @@ export default function Home() {
           <Grid sm={12} md={6} item>
             <Paper elevation={0} className={classes.lSDescription}>
               <Zoom clear>
-                <Typography className={classes.lSDescription__title} variant="h3" component="h2">
+                <Typography className={classes.lSDescription__title} variant="h3" component="h1">
                   Turbo Express Delivery
                 </Typography>
                 <Typography className={classes.lSDescription__subtitle} variant="h4" component="h3">

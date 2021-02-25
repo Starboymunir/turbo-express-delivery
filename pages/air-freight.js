@@ -19,7 +19,7 @@ export default function CargoServices() {
       </Head>
       <Grid className={classes.mainContainer} container alignItems="center" direction="column">
         <Zoom clear>
-          <Typography variant="h3" component="h2" gutterBottom>
+          <Typography variant="h3" component="h1" gutterBottom>
             <IconButton>
               <FlightIcon className={classes.titleIcon} color="primary" />
             </IconButton>{" "}
