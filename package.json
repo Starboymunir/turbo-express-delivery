@@ -2,7 +2,11 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
+    "preinstall": "node -e \"const [major]=process.versions.node.split('.'); if (Number(major)!==18) { console.error('\\n❌ Node 18.x is required. You are on ' + process.versions.node + '\\n'); process.exit(1); }\"",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -17,8 +21,12 @@
     "google-maps-react": "^2.0.6",
     "material-ui-nested-menu-item": "^1.0.2",
     "next": "10.0.6",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
+    "postcss": "7.0.39",
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
     "react-reveal": "^1.2.2"
+  },
+  "overrides": {
+    "postcss": "7.0.39"
   }
 }
