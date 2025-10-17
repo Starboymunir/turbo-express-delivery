@@ -2,15 +2,12 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "22.x"
-  },
+  "engines": { "node": "22.x" },
   "scripts": {
-    "preinstall": "node -e \"const major = Number(process.versions.node.split('.')[0]); if (major !== 22) { console.error('\\n❌ Node 22.x is required. You are on ' + process.versions.node + '\\n'); process.exit(1); }\"",
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "export": "next export",
+    "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider next dev",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider next build",
+    "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider next start",
+    "export": "cross-env NODE_OPTIONS=--openssl-legacy-provider next export",
     "postbuild": "node scripts/sitemap.js"
   },
   "dependencies": {
@@ -20,13 +17,11 @@
     "fs-extra": "^9.1.0",
     "google-maps-react": "^2.0.6",
     "material-ui-nested-menu-item": "^1.0.2",
-    "next": "10.0.6",
-    "postcss": "7.0.39",
+    "next": "10.2.3",
     "react": "16.14.0",
     "react-dom": "16.14.0",
-    "react-reveal": "^1.2.2"
-  },
-  "overrides": {
-    "postcss": "7.0.39"
+    "react-reveal": "^1.2.2",
+    "postcss": "8.4.31",
+    "autoprefixer": "10.4.16"
   }
 }
