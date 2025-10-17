@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "18.x"
+    "node": "22.x"
   },
   "scripts": {
-    "preinstall": "node -e \"const [major]=process.versions.node.split('.'); if (Number(major)!==18) { console.error('\\n❌ Node 18.x is required. You are on ' + process.versions.node + '\\n'); process.exit(1); }\"",
+    "preinstall": "node -e \"const major = Number(process.versions.node.split('.')[0]); if (major !== 22) { console.error('\\n❌ Node 22.x is required. You are on ' + process.versions.node + '\\n'); process.exit(1); }\"",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
